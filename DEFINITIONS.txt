@@ -1,0 +1,107 @@
+# 1 "fppDEFINITIONS.txt"
+!!!! Definition file
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!
+! DEFINE SYSTEM TYPE
+!
+! Note: Total system size is always dimR*dimZ
+!
+! 1: cylindrical pore, channel radius = dimR/2, no reservoirs
+! 3: hour glass pore -- using a parabola , reservoir lenght = RdimZ, curvature of parabola = curvature, channel radius = CdimR
+! 4: conical pore, base radius = BdimR, reservoir lenght RdimZ, tip radius = TdimR
+! 5: hour glass pore -- using a parabola, with nanoparticle of radius iPdimR at PposZ
+!
+! 10: hour-glass using hemicircles (following Orit's notes). pore length: CdimZ, minimum pore radius: CdimR
+! 11: hour-glass like (following Orit's notes). pore length: CdimZ, minimum pore radius: CdimR, minimum base of trapezoid: CdimZmin
+! 12: cylindrical (following Orit's notes). pore length: CdimZ, pore radius: CdimR
+!
+poretype 12
+! 1: old cadenas routine, 2: MK's new cadenas routine
+cadenastype 2
+!----------------------------------- System size --------------------
+! system total size is dimR x dimZ
+dimR 500 !500
+dimZ 1400 !1400
+! discretization step, use delta = 0.5 as default
+delta 0.5
+! segment length
+lseg 0.38
+! number of conformations (is the same for all chains)
+cuantas 3000
+! minimum pore radius, see pore type
+CdimR 6 !32
+! pore length, see above
+CdimZ 24 !72
+! base of the trapezoid in hour glass like, see above
+CdimZmin 56
+! base of the cylindrical pore, see above
+BdimR 20
+! tip of the cylindrical pore, see above
+TdimR 10
+! length of reservoir for hour-glass-parabola and connical pore see above
+RdimZ 40
+! curvature for the hour glass parabola
+curvature 0.1
+!----------------------------------- Output options --------------------
+! 0: VTK format, 1: table -- for matlab plotting, 2: both
+savetodisk_type 1
+!save to disk 0:all, 1:only avpol total, 2:avpol sum over all monomers for a
+given chain, 3: avpol for different chains and different monomers 5: avpol
+x-ions phi f and protein 10: nothing 11: avpol+poten+protC#
+savetodisk_flag 11
+! set to a very large value to avoid resume file
+save_every 5000 
+! saveindex
+saveindex 1
+!------------------------------------ Input options  ------------------------
+! 1: read kai matrix from file kai-'dimR'.dat, 0: calculate kai matrix and save to kai-'dimR'.dat
+readkai 1
+! infile, 0: no initial guess, 1: read inital guess from in.txt, 5: read out.xxx.dat but do not solve (use for data processing)#
+infile 0
+!------------------------------------- Kai parameters calculation by MC integration
+MCsteps 10000000
+!------------------------------------- MK's generator parameters -----------
+! segment diameter [nm] (nups: 0.35), classical chain (dseg=lseg)
+dseg  0.55       
+! characterizes chain model. nups: 5, classical flexible chain: 1
+nearbonds  5     
+! a constant for the neighbor list (keep unchanged at 100)
+mcube  100       
+! number of different roots (keep unchanged), use cuantas/1000+200
+ncha_max 700 
+! target CPU time, use > 100 for production, only important for calq = 1
+wantedCPUsecs 20      
+! 1=calulate qprob and stop, 0=use qprob from below
+calq 0             
+qprob 0.6933
+                                                                        
+!------------------------------------- Running conditions  -----------
+! Salt concentration
+csalt 0.15
+! bulk pH
+pHbulk 7.2
+!sts, input number and then list
+st 1
+1.0
+! surface coverage, sigma, not in use for NPC
+sigma 0
+! maxlong
+maxlong 857
+!readseed
+readseed 123
+!-------------------------------- protein -------------------------------
+! protein type 1=sphere 2=cylinder
+Ptype 1
+! Protein position in delta units
+Ppos 550
+! protein radius in delta units
+PdimR 10
+! protein internal volume fraction in delta units, prot_vol = 0 for no protein
+prot_vol 0 !0.95
+! protein charge, prot_q = 0 for no charge
+prot_q 0
+! hrange ! protein poor solvent interaction range in delta units
+hrange 1
+! hst multiplicative factor protein-segment interaction
+hst 0.0
+
