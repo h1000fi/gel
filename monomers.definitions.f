@@ -8,6 +8,8 @@
       include 'mpif.h'
       include 'MPI.h'
 
+      integer i, j
+
       N_poorsol = 2 ! number of different kais
       N_monomer = 4 
 
@@ -16,7 +18,6 @@
       ALLOCATE (hydroph(N_monomer)) ! 0: hydrophilic, 1 < x < N_poorsol, type of poor solvent
       ALLOCATE (pKa(N_monomer), Ka(N_monomer), K0(N_monomer))
       ALLOCATE (henergy(N_poorsol))
-
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

@@ -138,6 +138,14 @@
            read(buffer, *, iostat=ios) pairsize
          if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
 
+        case ('avepair')
+           read(buffer, *, iostat=ios) avepair
+         if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
+
+        case ('hguess')
+           read(buffer, *, iostat=ios) hguess
+         if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
+
         case ('hring')
            read(buffer, *, iostat=ios) hring
          if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
@@ -165,9 +173,9 @@
            read(buffer, *, iostat=ios) zspace
          if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
 
-        case ('tol')
-           read(buffer, *, iostat=ios) tol
-         if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
+!        case ('tol')
+!           read(buffer, *, iostat=ios) tol
+!         if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
 
         case ('kBias')
            read(buffer, *, iostat=ios) kBias
@@ -255,9 +263,9 @@
            read(buffer, *, iostat=ios) csalt
          if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
 
-!        case ('pHbulk')
-!           read(buffer, *, iostat=ios) pHbulk
-!         if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
+        case ('pHbulk')
+           read(buffer, *, iostat=ios) pHbulk
+         if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
 
         case ('infile')
            read(buffer, *, iostat=ios) infile

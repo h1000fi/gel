@@ -73,7 +73,7 @@ c      enddo ! j
 
 ! open files
 
-       if(pHbulk.eq.pHstart) then
+       if(kp.eq.kps(1)) then
        open(unit=301, file='Free_energy.dat')                       
          write(301,*) 'pHbulk ','Free_energy ','Free_energy2 ',
      &  'F_Mix_s ','F_Mix_pos ','F_Mix_neg ','F_Mix_Hplus ',
@@ -256,7 +256,7 @@ c! 8.vdW ! Ojo, los  son negativos => atraccion
 
              F_vdW = F_vdW - 0.5000*delta**3*xtotal2(ii,iC)*
      &       xtotal2(iii,Xulist_cell(ii, iC, iiC))*
-     &       Xulist_value(ii, iC, iiC)*st_matrix(ii, iii)*st
+     &       Xulist_value(2, iC, iiC)*st_matrix(ii, iii)*st
      &       /((vpol*vsol)**2)
      &       *(dfloat(indexa(iC,1))-0.5)*2*pi
 
@@ -299,7 +299,8 @@ c! 11. Protein-sup
       F_pair = 0.0
 
       do iC = 1, ncells
-      F_pair = F_pair - xtotal2(1,iC)*Fpair(iC)*
+!      F_pair = F_pair + (xtotal2(1,iC)*Fpair(iC)+Fpair_tot(iC))*
+      F_pair = F_pair + (xtotal2(1,iC)*Fpair(iC))*
      & (dfloat(indexa(iC,1))-0.5)*2.0*pi
      & *(delta**3)/(vpol*vsol)
       enddo ! iC
@@ -400,7 +401,7 @@ c     & *(dfloat(indexa(iC,1))-0.5)*2*pi
          sumfcargo = (delta**3/vsol)*sumfcargo                        
  
          Free_Energy2 = sumpi + sumrho + sumel + sumfcargo         
-         Free_Energy2 = Free_Energy2 - F_vdW
+         Free_Energy2 = Free_Energy2 - F_vdW !+ F_pair
                           
          do ii = 1, N_chains                                         
          Free_Energy2 = Free_Energy2 -

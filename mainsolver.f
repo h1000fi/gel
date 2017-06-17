@@ -227,9 +227,15 @@ C--------------------------------------------------------------
 !      st = sts(1)
       kp = 1.0d10+kps(1)
       do ikp = 1, nkp
-       do while (kp.ne.kps(i))
+       do while (kp.ne.kps(ikp))
         kp = kps(ikp)
-        if(rank.eq.0)write(stdout,*)'Switch to kp = ', kp
+        if(rank.eq.0)print*, 'Switch to kp = ', kp
+
+        if(kp.gt.0.0001) then
+         tol=1.0d-5
+        else
+         tol=1.0d-9
+        endif
 
         call presolver
         call solver(x1,xg1,ier)

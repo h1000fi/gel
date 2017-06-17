@@ -223,6 +223,11 @@ c      call savetodisk(xsol, title, cc, ccc)
       title = 'Fpair'
       call savetodisk(Fpair, title, cc, ccc)
 
+! Pair energy
+
+      title = 'Fptot'
+      call savetodisk(Fpair_tot, title, cc, ccc)
+
 ! abs charge
 
       title = 'qtot_amp'

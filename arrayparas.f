@@ -116,9 +116,9 @@
       real*8, allocatable :: aveC(:) ! average absolute charge within the cutoff
       real*8, allocatable :: qtot_amp(:) ! absolute charge within the cutoff
       real*8, allocatable :: Spair(:) ! pair entropy compensation
-      real*8, allocatable :: Fpair(:) ! pair free energy
+      real*8, allocatable :: Fpair(:) ! pair free energy,dF/dx,x*Fpair+Fpair_tot will be the whole F              
       real*8, allocatable :: Rpair(:) ! pair rate as a reaction
-      real*8, allocatable :: Fpair_tot(:) ! total pair free energy as a reaction
+      real*8, allocatable :: Fpair_tot(:) ! Global effect of pairing to add to free energy
 ! Bulk
       real*8 xsolbulk ! volume fraction solvent in bulk
       real*8 xposbulk, xposbulk2, xnegbulk, xsalt,csalt
@@ -173,6 +173,8 @@
       real*8 pHstep
       real*8 kC
       real*8 pairsize
+      integer avepair
+      integer hguess
       real*8 hring
       real*8 oval
       integer nkp

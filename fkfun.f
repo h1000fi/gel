@@ -228,18 +228,23 @@ C-----------------------------------------------------
                  if(avepair.eq.1) then
                   aveP(iC) = aveP(iC)/avePnorm
                  else
-                  aveP(iC) = xtotal(iC)  ! +decouple*xtotal(2,iC)
+                  aveP(iC) = xtotal(1,iC)  ! +decouple*xtotal(2,iC)
                  endif
 
                  if(aveP(iC).gt.0) then
-                 apair = dexp(pairst*hfactor)-0.5
-                 bpair=2*dexp(pairst*hfactor)-1+1/pairsize/aveP(iC)
-                 cpair = dexp(pairst*hfactor)
-                 Rpair(iC) =
+                  apair = dexp(pairst*hfactor)-0.5
+                  bpair=2*dexp(pairst*hfactor)-1+1/pairsize/aveP(iC)
+                  cpair = dexp(pairst*hfactor)
+                  Rpair(iC) =
      &                (bpair-sqrt(bpair**2-4*apair*cpair))/apair/2
-                 Fpair(iC) = dlog(1-Rpair(iC))
+                  Fpair(iC) = dlog(1-Rpair(iC))
      &               -dlog(1-pairsize*aveP(iC)*(1-0.5*Rpair(iC)))
-                 xpot(im,iC)=xpot(im,iC)-Fpair(iC)
+                  Fpair_tot(iC) = 1/pairsize*
+     &                dlog(1-pairsize*aveP(iC)*(1-0.5*Rpair(iC)))
+                  xpot(im,iC)=xpot(im,iC)-Fpair(iC)
+                 else
+                  Fpair(iC) = 0
+                  Fpair_tot(iC) = 0
                  endif
                endif
 
