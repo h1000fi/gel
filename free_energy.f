@@ -22,7 +22,7 @@
       real*8 sumfcargo
       real*8 F_Mix_OHmin, F_Conf, F_Conf_temp                     
       real*8  F_Conf2, F_Conf_temp2                               
-     & , F_Eq, F_Eq_P, F_vdW, F_eps, F_electro, F_pair                 
+     & , F_Eq, F_Eq_P, F_vdW, F_eps, F_electro, F_pair, F_pair2         
                                                                   
       real*8 counter, counter2                                    
                                                                   
@@ -294,18 +294,28 @@ c! 10. Protein-sup
 
       Free_Energy = Free_Energy + F_eps
 
-c! 11. Protein-sup
+c! 11. Hydrophobic pairing energy
 
       F_pair = 0.0
 
       do iC = 1, ncells
-!      F_pair = F_pair + (xtotal2(1,iC)*Fpair(iC)+Fpair_tot(iC))*
-      F_pair = F_pair + (xtotal2(1,iC)*Fpair(iC))*
+      F_pair = F_pair + (xtotal2(1,iC)*(Fpair(iC)+1)
+     &     +Fpair_tot(iC))*
      & (dfloat(indexa(iC,1))-0.5)*2.0*pi
      & *(delta**3)/(vpol*vsol)
       enddo ! iC
 
       Free_Energy = Free_Energy + F_pair
+
+      F_pair2 = 0.0
+
+      do iC = 1, ncells
+      F_pair2 = F_pair2 + Fpair_tot(iC)*
+     & (dfloat(indexa(iC,1))-0.5)*2.0*pi
+     & *(delta**3)/(vpol*vsol)
+      enddo ! iC
+
+
 !
 
 c! 12. Chemical Equilibrium Particle                                             
@@ -401,7 +411,7 @@ c     & *(dfloat(indexa(iC,1))-0.5)*2*pi
          sumfcargo = (delta**3/vsol)*sumfcargo                        
  
          Free_Energy2 = sumpi + sumrho + sumel + sumfcargo         
-         Free_Energy2 = Free_Energy2 - F_vdW !+ F_pair
+         Free_Energy2 = Free_Energy2 - F_vdW + F_pair2
                           
          do ii = 1, N_chains                                         
          Free_Energy2 = Free_Energy2 -
