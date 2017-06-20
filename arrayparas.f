@@ -154,6 +154,7 @@
       real*8 sts(100)
       integer nst
 
+      integer nchains
       integer maxlong
       integer poretype
       integer cadenastype

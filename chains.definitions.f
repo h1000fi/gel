@@ -8,12 +8,12 @@
          real*8 z_center
          integer i
 
-         if(rank.eq.0) then
-         print*, 'Using chain definitions for the NPC'
-         print*, '20 different chains in the system'
-         endif
+!         if(rank.eq.0) then
+!         print*, 'Using chain definitions for the NPC'
+!         print*, '20 different chains in the system'
+!         endif
 
-         N_chains = 4
+         N_chains = nchains
          ALLOCATE (long(N_chains))
          ALLOCATE (chainsperdelta(N_chains))
          ALLOCATE (zposition(N_chains))
@@ -33,21 +33,30 @@
 !         call read_seq(i)
 !         zposition(i)      = zspace + 2.0*deltaZp + z_center
 
-         i=i+1
-         call read_seq(i)
-         zposition(i)      = zspace + 1.0*deltaZp + z_center
+         do i=1,N_chains
+          call read_seq(i)
+          zposition(i) = (i-0.5*(mod(N_chains,2)+1+N_chains))*deltaZp
+          zposition(i) = zposition(i)+z_center
+          if(rank.eq.0) then
+            print*, ' now grafting', i, N_chains, zposition(i)
+          endif
+         end do
 
-         i=i+1
-         call read_seq(i)
-         zposition(i)      = zspace + 0.0*deltaZp + z_center
+!         i=i+1
+!         call read_seq(i)
+!         zposition(i)      = zspace + 1.0*deltaZp + z_center
 
-         i=i+1
-         call read_seq(i)
-         zposition(i)      = -zspace -0.0*deltaZp + z_center
+!         i=i+1
+!         call read_seq(i)
+!         zposition(i)      = zspace + 0.0*deltaZp + z_center
 
-         i=i+1
-         call read_seq(i)
-         zposition(i)      = -zspace -1.0*deltaZp + z_center
+!         i=i+1
+!         call read_seq(i)
+!         zposition(i)      = -zspace -0.0*deltaZp + z_center
+
+!         i=i+1
+!         call read_seq(i)
+!         zposition(i)      = -zspace -1.0*deltaZp + z_center
 
 !         i=i+1
 !         call read_seq(i)
@@ -57,10 +66,10 @@
 !         call read_seq(i)
 !         zposition(i)      = -zspace -3.0*deltaZp + z_center
 
-        if (i.ne.N_chains) then 
-        if(rank.eq.0)print*, 'BAD NUMBER OF CHAINS for seq_type 13'
-        stop
-        end if                                  ! MK END ADDED
+!        if (i.ne.N_chains) then 
+!        if(rank.eq.0)print*, 'BAD NUMBER OF CHAINS for seq_type 13'
+!        stop
+!        end if                                  ! MK END ADDED
 
         end
 

@@ -310,7 +310,7 @@ c! 11. Hydrophobic pairing energy
       F_pair2 = 0.0
 
       do iC = 1, ncells
-      F_pair2 = F_pair2 + Fpair_tot(iC)*
+      F_pair2 = F_pair2 + (xtotal2(1,iC)+Fpair_tot(iC))*
      & (dfloat(indexa(iC,1))-0.5)*2.0*pi
      & *(delta**3)/(vpol*vsol)
       enddo ! iC

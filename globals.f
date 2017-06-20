@@ -285,6 +285,10 @@
            read(buffer, *, iostat=ios) sigma
          if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
 
+        case ('nchains')
+           read(buffer, *, iostat=ios) nchains
+         if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
+
         case ('maxlong')
            read(buffer, *, iostat=ios) maxlong
          if(rank.eq.0)print*,'Set ',trim(label),' = ',trim(buffer)
