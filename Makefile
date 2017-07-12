@@ -6,7 +6,7 @@ SRC = globals.f nanopore.f mrrrr.f rota36.f creador.f cadenas72mr.f fkfun.f chai
 
 # some definitions
 SHELL = /bin/bash
-FFLAGS= -fbounds-check #-O3 #${F90FLAGS} # -O3 -traceback -check all ${F90FLAGS}
+FFLAGS= -O3 #-fbounds-check #-O3 #${F90FLAGS} # -O3 -traceback -check all ${F90FLAGS}
 
 #LDFLAGS= -L/export/apps/sundials-2.5.0-openmpi/lib -lsundials_fkinsol -lsundials_kinsol -lsundials_fnvecserial -lsundials_nvecserial -lm -L/usr/lib/gcc/x86_64-redhat-linux/4.4.6 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/4.4.6/../../.. -lgfortranbegin -lgfortran -lm -lgcc_s
 
